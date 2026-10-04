@@ -10,8 +10,21 @@ import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Table;
+
 @Data
-public class TacoOrder {
+@Table("Taco_Order")
+public class TacoOrder implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    private Long id;
+    private Date placedAt = new Date();
 
     @NotBlank(message="Delivery name is required")
     private String deliveryName;
