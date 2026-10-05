@@ -12,6 +12,8 @@ import org.springframework.web.bind.support.SessionStatus;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import p66.taco_cloud.TacoOrder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import p66.taco_cloud.User;
 
 @Slf4j
 @Controller
@@ -30,10 +32,11 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid TacoOrder order, Errors errors, SessionStatus sessionStatus){
+    public String processOrder(@Valid TacoOrder order, Errors errors, SessionStatus sessionStatus, @AuthenticationPrincipal User user){
         if (errors.hasErrors()){
             return "orderForm";
         }
+        order.setUserId(user.getId());
 
         orderRepo.save(order);
         sessionStatus.setComplete();

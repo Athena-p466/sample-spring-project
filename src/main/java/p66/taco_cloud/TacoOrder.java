@@ -56,4 +56,6 @@ public class TacoOrder implements Serializable {
         tacos.add(taco);
     }
 
+    private Long userId;
+
 }
